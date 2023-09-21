@@ -61,7 +61,7 @@ class Claim(models.Model):
     text = models.TextField('Текст жалобы')
 
     def __str__(self):
-        return (f'{self.user} {self.flat}')
+        return f'{self.user} {self.flat}'
 
 
 class Owner(models.Model):
@@ -69,3 +69,6 @@ class Owner(models.Model):
     owner_phonenumber = models.CharField(max_length=20, verbose_name='Номер владельца')
     owner_pure_phone = PhoneNumberField(blank=True, verbose_name='Нормализованный номер владельца')
     flat = models.ManyToManyField(Flat, related_name='owners', verbose_name='Квартиры в собственности')
+
+    def __str__(self):
+        return self.full_name
