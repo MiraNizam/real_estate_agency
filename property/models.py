@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -49,7 +47,6 @@ class Flat(models.Model):
         db_index=True)
     new_building = models.BooleanField('Новостройка', blank=True, default=None)
     liked_by = models.ManyToManyField(User, related_name="liked_flats", verbose_name='Кто лайкнул', blank=True)
-    owner_pure_phone = PhoneNumberField(blank=True)
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
@@ -65,9 +62,9 @@ class Claim(models.Model):
 
 
 class Owner(models.Model):
-    full_name = models.CharField(verbose_name='ФИО владельца', max_length=100, db_index=True)
+    full_name = models.CharField(verbose_name='ФИО владельца', max_length=200, db_index=True)
     owner_phonenumber = models.CharField(max_length=20, verbose_name='Номер владельца', db_index=True)
-    owner_pure_phone = PhoneNumberField(blank=True, verbose_name='Нормализованный номер владельца')
+    owner_pure_phone = PhoneNumberField(blank=True, verbose_name='Нормализованный номер владельца', db_index=True)
     flats = models.ManyToManyField(Flat, related_name='owners', verbose_name='Квартиры в собственности')
 
     def __str__(self):
