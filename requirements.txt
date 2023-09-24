@@ -3,4 +3,3 @@ Django==2.2.24
 django-phonenumber-field==7.1.0
 environs==5.2.1
 phonenumberslite==8.13.20
-python-dotenv==1.0.0
