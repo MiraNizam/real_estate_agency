@@ -6,7 +6,7 @@ import phonenumbers
 
 def copy_renewed_phones(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.all().iterator():
         flat_phonenumber = phonenumbers.parse(flat.owners_phonenumber, 'RU')
         if phonenumbers.is_valid_number(flat_phonenumber):
             formatted_phonenumber = phonenumbers.format_number(flat_phonenumber, phonenumbers.PhoneNumberFormat.E164)

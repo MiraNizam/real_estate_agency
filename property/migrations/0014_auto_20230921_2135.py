@@ -6,7 +6,7 @@ from django.db import migrations
 def add_connection_with_flat(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for owner in Owner.objects.all():
+    for owner in Owner.objects.all().iterator():
         flats = Flat.objects.filter(
             owner=owner.full_name,
             owners_phonenumber=owner.owner_phonenumber)
